@@ -1,0 +1,26 @@
+services:
+  web:
+    image: todo
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      POSTGRES_HOST: backend
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: todo_db
+
+  backend:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: todo_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
